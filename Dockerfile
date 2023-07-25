@@ -13,4 +13,6 @@ COPY start.sh .
 
 EXPOSE 3333
 
-CMD ["./start.sh"]
+CMD ["npx","sequelize-cli","db:migrate"]
+
+CMD ["node","./src/index.js"]
