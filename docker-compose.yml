@@ -1,0 +1,43 @@
+version: "3"
+services:
+  postgres:
+    image: postgres
+    networks:
+      - proxy
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      retries: 5
+
+  api:
+    build: .
+    networks:
+      - proxy
+    ports:
+      - "3333:3333"
+    depends_on:
+      - postgres
+    environment:
+      DIALECT: postgres
+      HOST: postgres
+      USERNAME_DB: postgres
+      PASSWORD_DB: postgres
+      DATABASE: postgres
+      PORT_DB: 5432
+      PORT_API: 3333
+      JWT_SECRET: chocolate
+      BASE_EXTERNAL_API: https://api.punkapi.com/v2
+
+networks:
+  proxy:
+
+volumes:
+  pgdata:
