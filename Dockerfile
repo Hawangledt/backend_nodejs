@@ -13,6 +13,4 @@ COPY start.sh .
 
 EXPOSE 3333
 
-CMD ["npx","sequelize-cli","db:migrate"]
-
-CMD ["node","./src/index.js"]
+CMD npx sequelize-cli db:migrate && node ./src/index.js
