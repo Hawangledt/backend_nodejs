@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const { connection } = require('./database/connection')
-const { PORT_API } = process.env
+const { PORT } = process.env
 const routes = require('./routes')
 
 class Server {
@@ -28,7 +28,7 @@ class Server {
     }
     async initializeServer(app) {
 
-        app.listen(PORT_API, () => console.log(`Server running on port ${PORT_API}`))
+        app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
     }
 
     async allRoutes(app) {
